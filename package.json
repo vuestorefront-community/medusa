@@ -32,7 +32,8 @@
     "update:update": "ncu -u && lerna run update:update --stream"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.5",
+    "@babel/core": "^7.16.12",
+    "@babel/plugin-proposal-private-methods": "^7.16.11",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@commitlint/config-lerna-scopes": "^16.2.2",

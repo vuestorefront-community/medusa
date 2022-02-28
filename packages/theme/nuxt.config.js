@@ -43,7 +43,10 @@ export default {
     // to core
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
+    '@nuxtjs/device',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -123,7 +126,24 @@ export default {
     },
     detectBrowserLanguage: false
   },
-
+  pwa: {
+    meta: {
+      theme_color: '#5ECE7B',
+    },
+  },
+  googleFonts: {
+    families: {
+      Raleway: {
+        wght: [300, 400, 500, 600, 700],
+        ital: [400],
+      },
+      Roboto: {
+        wght: [300, 400, 500, 700],
+        ital: [300, 400],
+      },
+    },
+    display: 'swap',
+  },
   styleResources: {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })]
   },
@@ -132,21 +152,41 @@ export default {
   build: {
     babel: {
       plugins: [
-        ['@babel/plugin-proposal-private-methods', { loose: true }]
-      ]
+        ['@babel/plugin-proposal-private-methods', { loose: true }],
+      ],
+    },
+    extractCSS: true,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+    },
+    optimizeCSS: true,
+    parallel: true,
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true,
     },
     transpile: [
-      'vee-validate/dist/rules'
+      'vee-validate/dist/rules',
     ],
     plugins: [
       new webpack.DefinePlugin({
         'process.VERSION': JSON.stringify({
           // eslint-disable-next-line global-require
           version: require('./package.json').version,
-          lastCommit: process.env.LAST_COMMIT || ''
-        })
-      })
-    ]
+          lastCommit: process.env.LAST_COMMIT || '',
+        }),
+      }),
+    ],
   },
 
   router: {
@@ -154,10 +194,5 @@ export default {
   },
   publicRuntimeConfig: {
     theme
-  },
-  pwa: {
-    meta: {
-      theme_color: '#5ECE7B'
-    }
   }
 };
