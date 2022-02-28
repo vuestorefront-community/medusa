@@ -2,11 +2,10 @@ import {
   StoreCartsRes as MedusaCart,
   Product as MedusaProduct,
   LineItem as MedusaLineItem,
-  StoreGetProductsParams as MedusaStoreGetProductsParams,
+  StoreGetProductsParams as MedusaStoreGetProductsParams
 } from '@medusajs/medusa';
 import Medusa from '@medusajs/medusa-js';
 import { Endpoints } from './apiTypes';
-
 
 export interface Storage {
   set: (
@@ -17,7 +16,6 @@ export interface Storage {
   remove: (name: string) => any;
   removeAll: () => void;
 }
-
 
 export type ConfigState = {
   getCartId(): string;
