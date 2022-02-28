@@ -1,39 +1,35 @@
-import * as api from './api';
-import { apiClient } from './helpers/apiClient';
-import { apiClientFactory } from '@vue-storefront/core';
-import { Config } from './types';
-import { cookieManager } from './extensions/cookieManager';
-import { defaultSettings } from './helpers/defaultSettings';
+import { apiClientFactory } from "@vue-storefront/core"
+import * as api from "./api"
+import { apiClient } from "./helpers/apiClient"
+import { defaultSettings } from "./helpers/defaultSettings"
+import { Config } from "./types"
 
 function onCreate(settings: Config) {
   const config = {
     ...defaultSettings,
     ...settings,
-    state: settings.state || defaultSettings.state
-  } as unknown as Config;
+  } as unknown as Config
 
   if (settings.client) {
     return {
       client: settings.client,
-      config
-    };
+      config,
+    }
   }
 
   return {
     config: settings,
     client: apiClient({
-      api: config.api,
-      ...config.customOptions
-    })
-  };
+      baseUrl: config.baseUrl,
+      ...config.customOptions,
+    }),
+  }
 }
 
 const { createApiClient } = apiClientFactory({
   onCreate,
   api,
-  extensions: [cookieManager]
-});
+  extensions: [],
+})
 
-export {
-  createApiClient
-};
+export { createApiClient }

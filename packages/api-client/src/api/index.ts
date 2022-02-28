@@ -1,3 +1,2 @@
-export { createCart } from './createCart';
-export { listProducts } from './listProducts';
-export { productDetails } from './productDetails';
+export * from "./carts"
+export * from "./products"

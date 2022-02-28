@@ -2,8 +2,8 @@ import {
   Cart as MedusaCart,
   LineItem as MedusaLineItem,
   Product as MedusaProduct,
-  StoreGetProductsParams as MedusaStoreGetProductsParams
-} from '@medusajs/medusa';
+  StoreGetProductsParams as MedusaStoreGetProductsParams,
+} from "@medusajs/medusa"
 
 export type TODO = Record<string, any>
 
